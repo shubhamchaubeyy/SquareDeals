@@ -43,6 +43,10 @@ public class User {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "admin_id")
+//    private User user;
+	
 	//private String profileImageUrl; // New field for profile image URL
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -143,6 +147,7 @@ public class User {
 		this.deletedAt = deletedAt;
 	}
 
+
 	public User() {
 		super();
 	}
@@ -164,5 +169,7 @@ public class User {
 		this.updatedAt = updatedAt;
 		this.deletedAt = deletedAt;
 	}
+
+	
 	
 }

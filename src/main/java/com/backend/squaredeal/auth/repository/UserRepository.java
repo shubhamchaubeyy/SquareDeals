@@ -13,18 +13,18 @@ import com.backend.squaredeal.auth.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 
-	Optional<User> findByUsername(String username);
+	Optional<User> findByUsernameAndIsActiveTrue(String username);
 
-    boolean existsByUsername(String username);
+    boolean existsByUsernameAndIsActiveTrue(String username);
 
-    List<User> findByTenantId(Long tenantId);
+    List<User> findByTenantIdAndIsActiveTrue(Long tenantId);
 
-    List<User> findByTenantIdAndRole(
+    List<User> findByTenantIdAndRoleAndIsActiveTrue(
             Long tenantId,
             Role role
     );
 
-    Optional<User> findByIdAndTenantId(
+    Optional<User> findByIdAndTenantIdAndIsActiveTrue(
             Long id,
             Long tenantId
     );

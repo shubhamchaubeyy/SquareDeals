@@ -38,7 +38,7 @@ public class Tenant {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status;
-	private boolean isActive = true;
+	private Boolean isActive = true;
 	
 	@Enumerated(EnumType.STRING)
     private SubscriptionStatus subscriptionStatus;
@@ -51,10 +51,10 @@ public class Tenant {
 	private LocalDateTime updatedAt;
 	private LocalDateTime deletedAt;
 	
-	public boolean isActive() {
+	public Boolean getActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 	public long getId() {
@@ -169,7 +169,7 @@ public class Tenant {
 	
 	
 	public Tenant(long id, String businessName, String businessCode, String ownerName, String email, String phone,
-			String address, String city, String state, String country, String pincode, Status status, boolean isActive,
+			String address, String city, String state, String country, String pincode, Status status, Boolean isActive,
 			SubscriptionStatus subscriptionStatus, LocalDate subscriptionStartDate, LocalDate subscriptionEndDate,
 			LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
 		super();

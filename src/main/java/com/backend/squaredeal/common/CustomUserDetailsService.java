@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    System.out.println("LOGIN USERNAME = " + username);
 
 	    User user = userRepository
-	            .findByUsername(username)
+	            .findByUsernameAndIsActiveTrue(username)
 	            .orElseThrow(() ->
 	                    new UsernameNotFoundException(
 	                            "User not found: " + username

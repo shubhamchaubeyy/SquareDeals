@@ -52,16 +52,28 @@ public class AuthController {
 
 	@PostMapping("/create-superadmin")
 	public String createsuperadmin() {
-		 Tenant tenant = tenantRepository.findById((long) 1).orElseThrow(() -> new
-		 RuntimeException("Tenant not found"));
+//		 Tenant tenant = tenantRepository.findById((long) 1).orElseThrow(() -> new
+//		 RuntimeException("Tenant not found"));
 		User newUser = new User();
-		newUser.setUsername("admin");
+		newUser.setUsername("superadmin");
 		newUser.setPassword(passwordEncoder.encode("123456"));
-		newUser.setRole(Role.ADMIN);
+		newUser.setRole(Role.SUPERADMIN);
 		newUser.setActive(true);
-		newUser.setTenant(tenant); // Assuming tenant ID is 1 for superadmin
+		newUser.setTenant(null); 
 		userRepository.save(newUser);
 		return "Successfully added";
 	}
-	
+	@PostMapping("/create-admin")
+	public String createadmin() {
+		 Tenant tenant = tenantRepository.findById((long) 3).orElseThrow(() -> new
+		 RuntimeException("Tenant not found"));
+		User newUser = new User();
+		newUser.setUsername("admin3");
+		newUser.setPassword(passwordEncoder.encode("123456"));
+		newUser.setRole(Role.ADMIN);
+		newUser.setActive(true);
+		newUser.setTenant(tenant); 
+		userRepository.save(newUser);
+		return "Successfully added";
+	}
 }

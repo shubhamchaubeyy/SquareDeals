@@ -19,7 +19,7 @@ import com.backend.squaredeal.tenant.entity.Tenant;
 import com.backend.squaredeal.tenant.services.TenantService;
 
 @RestController
-@RequestMapping("/api/v1/superadmin/")
+@RequestMapping("/api/v1/superadmin")
 public class TenantController {
 
 	@Autowired

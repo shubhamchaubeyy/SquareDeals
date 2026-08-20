@@ -72,16 +72,16 @@ public class SecurityConfig {
 	                    ).hasRole("SUPERADMIN")
 
 	                    .requestMatchers(
-	                            "/admin/**"
+	                            "/api/v1/admin/**"
 	                    ).hasAnyRole(
-	                            "SUPERADMIN",
+	                           // "SUPERADMIN",
 	                            "ADMIN"
 	                    )
 
 	                    .requestMatchers(
 	                            "/agent/**"
 	                    ).hasAnyRole(
-	                            "SUPERADMIN",
+	                           // "SUPERADMIN",
 	                            "ADMIN",
 	                            "AGENT"
 	                    )

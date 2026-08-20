@@ -14,6 +14,7 @@ import com.backend.squaredeal.auth.entity.User;
 import com.backend.squaredeal.auth.repository.UserRepository;
 import com.backend.squaredeal.tenant.dto.TenantRequest;
 import com.backend.squaredeal.tenant.dto.TenantResponse;
+import com.backend.squaredeal.tenant.entity.Status;
 import com.backend.squaredeal.tenant.entity.SubscriptionStatus;
 import com.backend.squaredeal.tenant.entity.Tenant;
 import com.backend.squaredeal.tenant.repository.TenantRepository;
@@ -42,6 +43,7 @@ public class TenantService {
 		tenant.setState(request.getState());
 		tenant.setCountry(request.getCountry());
 		tenant.setActive(true); 
+		tenant.setStatus(Status.TRIAL);
 		tenant.setSubscriptionStatus(SubscriptionStatus.TRIAL);
 		tenant.setSubscriptionStartDate(LocalDate.now());
 		tenant.setSubscriptionEndDate(LocalDate.now().plusDays(30));
@@ -51,7 +53,7 @@ public class TenantService {
 				
 		tenantRepository.save(tenant);			
 		return new TenantResponse(tenant.getId(), tenant.getBusinessName(), tenant.getBusinessCode(), tenant.getOwnerName(),
-				tenant.getEmail(), tenant.getPhone(),tenant.getAddress(), tenant.isActive(), tenant.getSubscriptionStatus());
+				tenant.getEmail(), tenant.getPhone(),tenant.getAddress(), tenant.getActive(), tenant.getSubscriptionStatus());
 	}
 	
 	
@@ -64,8 +66,6 @@ public class TenantService {
 	
 	public List<Tenant> getAllTenantDetails() {
 		List<Tenant> tenants = tenantRepository.findAll();
-		
-		
 		return tenants; 
 	}
 	
@@ -83,7 +83,8 @@ public class TenantService {
 	    existingTenant.setCity(updatedTenant.getCity());
 	    existingTenant.setState(updatedTenant.getState());
 	    existingTenant.setCountry(updatedTenant.getCountry());
-	    existingTenant.setActive(updatedTenant.isActive());
+	    existingTenant.setActive(updatedTenant.getActive());
+	    existingTenant.setStatus(updatedTenant.getStatus());
 	    existingTenant.setSubscriptionStatus(updatedTenant.getSubscriptionStatus());
 	    existingTenant.setSubscriptionStartDate(updatedTenant.getSubscriptionStartDate());
 	    existingTenant.setSubscriptionEndDate(updatedTenant.getSubscriptionEndDate());
@@ -98,7 +99,7 @@ public class TenantService {
 
 	    return new TenantResponse(tenant.getId(), tenant.getBusinessName(), tenant.getBusinessCode(),
 	            tenant.getOwnerName(), tenant.getEmail(), tenant.getPhone(), tenant.getAddress(),
-	            tenant.isActive(), tenant.getSubscriptionStatus());
+	            tenant.getActive(), tenant.getSubscriptionStatus());
 	}
 	
 	public TenantResponse deleteTenant(Long id)
@@ -107,11 +108,12 @@ public class TenantService {
 	            .orElseThrow(() -> new RuntimeException("Tenant not found"));
 		
 		tenant.setActive(false);
+		tenant.setStatus(Status.INACTIVE);
 		tenant.setDeletedAt(LocalDateTime.now());
 		tenantRepository.save(tenant);
 		return new TenantResponse(tenant.getId(), tenant.getBusinessName(), tenant.getBusinessCode(),
 	            tenant.getOwnerName(), tenant.getEmail(), tenant.getPhone(), tenant.getAddress(),
-	            tenant.isActive(), tenant.getSubscriptionStatus());
+	            tenant.getActive(), tenant.getSubscriptionStatus());
 	}
 	
 	//admin management	
